@@ -82,7 +82,7 @@ public class Code {
 		return startState;
 	};
 
-	static int BestMove(char state[], Boolean max, int startPoints) {
+	static int BestMove(char state[], Boolean max, double startPoints) {
 		int bestMove = -1;
 		double endPoints;
 		if (max) {
