@@ -42,29 +42,29 @@ public class Code {
 				best = -20;
 				for (int i = 1; i < state.length; i++) {
 					endPoints = startPoints + CheckPairPoints(state[i], state[i - 1]);
-					char[] b = Create(state, i);
-					best = Math.max(best, Minimax(b, !max, endPoints));
+					char[] newState = Create(state, i);
+					best = Math.max(best, Minimax(newState, !max, endPoints));
 				}
 			} else {
 				best = 20;
 				for (int i = 1; i < state.length; i++) {
 					endPoints = startPoints + CheckPairPoints(state[i], state[i - 1]);
-					char[] b = Create(state, i);
-					best = Math.min(best, Minimax(b, !max, endPoints));
+					char[] newState = Create(state, i);
+					best = Math.min(best, Minimax(newState, !max, endPoints));
 				}
 			}
 			return best;
 		}
 	}
 
-	static char[] Create(char startState[], int x) {
+	static char[] Create(char startState[], int pair) {
 		char[] endState = new char[startState.length - 1];
 		for (int i = 0, n = 0; i < startState.length; i++) {
-			if (i != x && i != x - 1) {
+			if (i != pair && i != pair - 1) {
 				endState[n] = startState[i];
 				n++;
-			} else if (i == x - 1) {
-				if (CheckPairPoints(startState[x], startState[x - 1]) == 2)
+			} else if (i == pair - 1) {
+				if (CheckPairPoints(startState[pair], startState[pair - 1]) == 2)
 					endState[n] = 's';
 				else
 					endState[n] = 'a';
@@ -86,25 +86,25 @@ public class Code {
 		int bestMove = -1;
 		double endPoints;
 		if (max) {
-			int bestVal = -20;
+			int bestValue = -20;
 			for (int i = 1; i < state.length; i++) {
 				endPoints = startPoints + CheckPairPoints(state[i], state[i - 1]);
-				char[] b = Create(state, i);
-				int moveVal = Minimax(b, false, endPoints);
-				if (moveVal > bestVal) {
+				char[] newState = Create(state, i);
+				int moveValue = Minimax(newState, false, endPoints);
+				if (moveValue > bestValue) {
 					bestMove = i;
-					bestVal = moveVal;
+					bestValue = moveValue;
 				}
 			}
 		} else {
-			int bestVal = 20;
+			int bestValue = 20;
 			for (int i = 1; i < state.length; i++) {
 				endPoints = startPoints + CheckPairPoints(state[i], state[i - 1]);
-				char[] b = Create(state, i);
-				int moveVal = Minimax(b, true, endPoints);
-				if (moveVal < bestVal) {
+				char[] newState = Create(state, i);
+				int moveValue = Minimax(newState, true, endPoints);
+				if (moveValue < bestValue) {
 					bestMove = i;
-					bestVal = moveVal;
+					bestValue = moveValue;
 				}
 			}
 
